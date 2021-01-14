@@ -1,0 +1,238 @@
+/* link all the other needed CSS files */
+@import "bootstrap.min.css";
+@import "bootstrap-extensions.css";
+
+@font-face {
+  font-family: GothamRounded;
+  src: url("Gotham Rounded Book/Gotham Rounded Book.otf");
+}
+
+@font-face {
+  font-family: InterRegular;
+  src: url(Inter/Inter-Regular-slnt=0.ttf);
+}
+
+@font-face {
+  font-family: InterSemiBold;
+  src: url(Inter/Inter-SemiBold-slnt=0.ttf);
+}
+
+@font-face {
+  font-family: InterBold;
+  src: url(Inter/Inter-Bold-slnt=0.ttf);
+}
+
+@font-face {
+  font-family: InterBlack;
+  src: url(Inter/Inter-Black-slnt=0.ttf);
+}
+
+/* STYLES FOR IT145-8--weatherapp */
+
+.theme1 {
+  --weatherapp-base: #F1FAEE;
+  --weatherapp-main: #a1e1e4;
+
+  /* --weatherapp-main-pos1: #62A474;
+  --weatherapp-main-pos2: #528961;
+  --weatherapp-main-pos3: #416D4D;
+  --weatherapp-main-pos4: #235D3A;
+  --weatherapp-main-pos5: #203626;
+  --weatherapp-main-pos6: #101B13;
+
+  --weatherapp-main-neg1: #87C999;
+  --weatherapp-main-neg2: #9BD2AA;
+  --weatherapp-main-neg3: #AFDBBB;
+  --weatherapp-main-neg4: #C8EAD1;
+  --weatherapp-main-neg5: #D7EDDD;
+  --weatherapp-main-neg6: #EBF6EE; */
+
+  --weatherapp-accent1: #E63946;
+  --weatherapp-accent1-dark: #ce313e;
+  --weatherapp-accent1-light: #ff4050;
+
+  --weatherapp-accent2: #66cace;
+  --weatherapp-accent2-dark: #5db8bb;
+  --weatherapp-accent2-light: #73e0e4;
+
+  --weatherapp-contrast: #1D3557;
+}
+
+.theme2 {
+  --weatherapp-base: #235D3A;
+  --weatherapp-main: #73C088;
+
+  --weatherapp-main-pos1: #62A474;
+  --weatherapp-main-pos2: #528961;
+  --weatherapp-main-pos3: #416D4D;
+  --weatherapp-main-pos4: #235D3A;
+  --weatherapp-main-pos5: #203626;
+  --weatherapp-main-pos6: #101B13;
+
+  --weatherapp-main-neg1: #87C999;
+  --weatherapp-main-neg2: #9BD2AA;
+  --weatherapp-main-neg3: #AFDBBB;
+  --weatherapp-main-neg4: #C8EAD1;
+  --weatherapp-main-neg5: #D7EDDD;
+  --weatherapp-main-neg6: #EBF6EE;
+
+  --weatherapp-accent1: #A673C0;
+  --weatherapp-accent2: #C073AB;
+  --weatherapp-accent3: #C0737C;
+
+  --weatherapp-contrast: #fff;
+}
+
+:root {
+  font-size: 16px;
+  font-family: InterRegular;
+  color: var(--weatherapp-contrast);
+  --fp:50%;
+}
+
+/* elements */
+  body{
+    background-color: var(--weatherapp-base);
+  }
+  a{
+    color: var(--weatherapp-accent1);
+  }
+
+/* typography */
+  .weatherapp-title{
+    font-size: 4.6rem;
+    font-family: GothamRounded;
+    color: var(--weatherapp-contrast);
+  }
+  .weatherapp-regular{
+    font-family: InterRegular;
+    color: var(--weatherapp-contrast);
+  }
+  .weatherapp-semibold{
+    font-family: InterSemiBold;
+    color: var(--weatherapp-contrast);
+  }
+  .weatherapp-bold{
+    font-family: InterBold;
+    color: var(--weatherapp-contrast);
+  }
+  .weatherapp-black{
+    font-family: InterBlack;
+    color: var(--weatherapp-contrast);
+  }
+
+/* text colors */
+  .weatherapp-color-base{
+    color: var(--weatherapp-base);
+  }
+  .weatherapp-color-main{
+    color: var(--weatherapp-main);
+  }
+  .weatherapp-color-accent1{
+    color: var(--weatherapp-accent1);
+  }
+  .weatherapp-color-accent2{
+    color: var(--weatherapp-accent2);
+  }
+  .weatherapp-color-contrast{
+    color: var(--weatherapp-contrast);
+  }
+
+/* backgrounds */
+  .weatherapp-bg-base{
+    background-color: var(--weatherapp-base);
+  }
+  .weatherapp-bg-main{
+    background-color: var(--weatherapp-main);
+  }
+  .weatherapp-bg-accent1{
+    background-color: var(--weatherapp-accent1);
+  }
+  .weatherapp-bg-accent2{
+    background-color: var(--weatherapp-accent2);
+  }
+  .weatherapp-bg-contrast{
+    background-color: var(--weatherapp-contrast);
+  }
+
+/* button fills */
+  .weatherapp-btn-primary {
+    color: var(--weatherapp-base);
+    background-color: var(--weatherapp-accent1);
+    border-color: var(--weatherapp-accent1-dark);
+  }
+
+  .weatherapp-btn-primary:hover {
+    color: var(--weatherapp-base);
+    filter: brightness(90%);
+  }
+
+  .weatherapp-btn-primary.disabled, .weatherapp-btn-primary:disabled {
+    filter: brightness(70%);
+  }
+
+  .weatherapp-btn-secondary {
+    color: var(--weatherapp-contrast);
+    background-color: var(--weatherapp-accent2);
+    border-color: var(--weatherapp-accent2-dark);
+  }
+
+  .weatherapp-btn-primary:hover {
+    filter: brightness(90%);
+  }
+
+  .weatherapp-btn-primary.disabled, .weatherapp-btn-primary:disabled {
+    filter: brightness(70%);
+  }
+
+/* button outlines */
+  .weatherapp-btn-outline-primary {
+    color: var(--weatherapp-accent1);
+    background-color: transparent;
+    background-image: none;
+    border-color: var(--weatherapp-accent1);
+  }
+
+  .weatherapp-btn-outline-primary:hover {
+    color: var(--weatherapp-base);
+    background-color: var(--weatherapp-accent1);
+    border-color: var(--weatherapp-accent1-dark);
+  }
+  .weatherapp-btn-outline-primary.disabled, .weatherapp-btn-outline-primary:disabled {
+    filter: brightness(70%);
+  }
+
+/* tables */
+  .weatherapp-table-head{
+    border-top: 4px solid var(--weatherapp-contrast);
+    border-bottom: 4px solid var(--weatherapp-contrast);
+  }
+  .weatherapp-table{
+    border-bottom: 4px solid var(--weatherapp-contrast);
+  }
+
+/* others */
+  .weatherapp-hill{
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom: 0px;
+  }
+
+/* borders */
+  .weatherapp-border-contrast-1{
+    border: 1px solid var(--weatherapp-contrast)
+  }
+  .weatherapp-border-contrast-2{
+    border: 2px solid var(--weatherapp-contrast)
+  }
+  .weatherapp-border-contrast-3{
+    border: 3px solid var(--weatherapp-contrast)
+  }
+  .weatherapp-border-contrast-4{
+    border: 4px solid var(--weatherapp-contrast)
+  }
+  .weatherapp-border-contrast-5{
+    border: 5px solid var(--weatherapp-contrast)
+  }
