@@ -30,8 +30,8 @@
 /* STYLES FOR IT145-8--weatherapp */
 
 .theme1 {
-  --weatherapp-base: #F1FAEE;
-  --weatherapp-main: #a1e1e4;
+  --weatherapp-base: #83c5c0;
+  --weatherapp-main: #006D77;
 
   /* --weatherapp-main-pos1: #62A474;
   --weatherapp-main-pos2: #528961;
@@ -47,15 +47,17 @@
   --weatherapp-main-neg5: #D7EDDD;
   --weatherapp-main-neg6: #EBF6EE; */
 
-  --weatherapp-accent1: #E63946;
-  --weatherapp-accent1-dark: #ce313e;
-  --weatherapp-accent1-light: #ff4050;
+  --weatherapp-accent1: #E29578;
+  --weatherapp-accent1-dark: #c77d62;
+  --weatherapp-accent1-light: #f1b099;
 
-  --weatherapp-accent2: #66cace;
-  --weatherapp-accent2-dark: #5db8bb;
-  --weatherapp-accent2-light: #73e0e4;
+  --weatherapp-accent2: #FFDDD2;
+  --weatherapp-accent2-dark: #e4bbad;
+  --weatherapp-accent2-light: #fcece7;
 
-  --weatherapp-contrast: #1D3557;
+  --weatherapp-contrast: #EDF6F9;
+  --weatherapp-hard-contrast: #fff;
+  --weatherapp-hard-contrast-negative: #000;
 }
 
 .theme2 {
@@ -218,6 +220,33 @@
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
     border-bottom: 0px;
+  }
+
+/* card */
+  .weatherapp-card-recolor-main {
+    background-color: var(--weatherapp-main);
+    color: var(--weatherapp-contrast);
+    border: 1px solid var(--weatherapp-main);
+  }
+  .weatherapp-card-recolor-base {
+    background-color: var(--weatherapp-base);
+    color: var(--weatherapp-contrast);
+    border: 1px solid var(--weatherapp-main);
+  }
+  .weatherapp-card-recolor-accent1 {
+    background-color: var(--weatherapp-accent1);
+    color: var(--weatherapp-contrast);
+    border: 1px solid var(--weatherapp-main);
+  }
+  .weatherapp-card-recolor-accent2 {
+    background-color: var(--weatherapp-accent2);
+    color: var(--weatherapp-main);
+    border: 1px solid var(--weatherapp-main);
+  }
+  .weatherapp-card-recolor-contrast {
+    background-color: var(--weatherapp-contrast);
+    color: var(--weatherapp-main);
+    border: 1px solid var(--weatherapp-main);
   }
 
 /* borders */

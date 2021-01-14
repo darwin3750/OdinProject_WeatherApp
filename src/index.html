@@ -1,13 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Weather App</title>
+  <link rel="stylesheet" href="./styles/styles.css">
   <script defer src="main.js"></script>
-  <script defer src="search.js"></script>
 </head>
-<body>
-  
+
+<body class="theme1 weatherapp-bg-accent1">
+  <section class="container">
+    <div class="weatherapp-card-recolor-main card">
+      <h1 class="weatherapp-title text-center">My Weather App</h1>
+      <section class="row m-0">
+        <div class="col-md-8 p-0">
+          <div class="card weatherapp-card-recolor-contrast p-2 m-2">
+            <header class="">
+              <h2>Location: <span id="location"></span></h2>
+            </header>
+            <hr/>
+            <article>
+              <h4>Weather: <span id="weather"></span></h4>
+              <h4>Temperature: <span id="temperature"></span></h4>
+            </article>
+          </div>
+        </div>
+        <div class="col-md-4 p-0">
+          <div class="card weatherapp-card-recolor-contrast p-2 m-2">
+            <div class="form-group">
+              <label for="search">Look for City Name:</label>
+              <input id="search" type="text" class="form-control" autocomplete="off">
+              <ul id="searchResults" class="list-unstyled m-0">
+                
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </section>
+
 </body>
+
+<style>
+  ul#searchResults > li{
+    cursor: pointer;
+    transition: 0.2s;
+  }ul#searchResults > li:hover{
+    background-color: var(--weatherapp-base);
+  }
+</style>
+
 </html>
