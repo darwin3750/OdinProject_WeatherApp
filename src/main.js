@@ -15,6 +15,16 @@ var weatherApp = (function(){
         .then(() => renderCityDisplay());
   }
 
+  searchInput.addEventListener('keyup', (event) => {
+    if (((event.keyCode >=65 && event.keyCode <= 90) // letters
+        || (event.keyCode >=48 && event.keyCode <= 57)) // digits
+        || event.keyCode == 8) { //backspace
+      console.log(searchInput.value + " " + searchInput.value.length);
+      fetchSearchResults(searchInput.value)
+        .then(() => renderSearchResults());
+   }
+  })
+
   //functions
   function render(){
     fetchCityData()
@@ -31,6 +41,7 @@ var weatherApp = (function(){
 
   function renderSearchResults(){
     //console.log(citySearchResults);
+    while (searchResults.firstChild) {searchResults.removeChild(searchResults.lastChild);}
     citySearchResults.forEach(element => {
       let searchResult = document.createElement("li");
       searchResult.classList.add("p-2");
@@ -38,11 +49,6 @@ var weatherApp = (function(){
       searchResult.textContent = element;
       searchResults.appendChild(searchResult);
     });
-  }
-
-  function clearSearch(){
-    citySearchResults = [];
-    searchInput.textContent = "";
   }
 
   function getJSON(url) {
@@ -66,13 +72,20 @@ var weatherApp = (function(){
   
   function fetchSearchResults(searchValue){
     return new Promise(function (resolve, reject){
+      citySearchResults = []; //empty the array first before putting new search results in
       let cityList = getJSON("city.list.json");
       cityList.then(data => {
-        data.forEach((element, index) => {
-          if(element.name.search(searchValue) >= 0){
-            citySearchResults.push(`${element.name}, ${element.country}`);
-          }
-        });
+        try{
+          data.forEach((element, index) => {
+            if(element.name.search(searchValue) >= 0){
+              citySearchResults.push(`${element.name}, ${element.country}`);
+              if(citySearchResults.length > 10){throw "break"}
+            }
+          });
+        }catch (e) {
+          if (e !== "break") throw e;
+        }
+        
         resolve("Data fetched successfully.");
         //console.log(citySearchResults)
       })
