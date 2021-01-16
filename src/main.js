@@ -1,5 +1,5 @@
 var weatherApp = (function(){
-  let selectedCity, selectedCityCountry, selectedCityWeather, selectedCityWeatherDescription, selectedCityTemperature;
+  let selectedCity, selectedCityCountry, selectedCityWeather, selectedCityWeatherDescription, selectedCityTemperature, selectedWeatherGIF;
   let citySearchResults = [];
   let tempUnitIsCelsius = true;
 
@@ -11,11 +11,14 @@ var weatherApp = (function(){
   let currentTemperature = document.querySelector("#temperature");
   let tempToggleButton = document.querySelector("#temperature-switch");
   let tempColorDisplays = document.querySelectorAll(".weatherapp-temp-gradient");
+  let currentWeatherGIF = document.querySelector("#weatherGIF");
 
   //bind events
   function setNewCity(newCity){
     fetchCityData(newCity)
-        .then(() => renderCityDisplay());
+        .then(() => fetchGIF(selectedCityWeather))
+        .then(() => renderCityDisplay())
+        .then(() => renderWeatherGIF());
   }
 
   tempToggleButton.addEventListener('change', event => {
@@ -36,20 +39,26 @@ var weatherApp = (function(){
   //functions
   function render(){
     fetchCityData()
-        .then(() => renderCityDisplay());
+        .then(() => fetchGIF(selectedCityWeather))
+        .then(() => renderCityDisplay())
+        .then(() => renderWeatherGIF());
     fetchSearchResults()
         .then(() => renderSearchResults());
   }
 
   function renderCityDisplay(){
     currentLocation.textContent = `${selectedCity}, ${selectedCityCountry}`;
-    currentWeather.textContent = selectedCityWeather;
+    currentWeather.textContent = `${selectedCityWeather} (${selectedCityWeatherDescription})`;
     currentTemperature.textContent = tempUnitIsCelsius ? 
         selectedCityTemperature+'\xB0C' : celsiustoFarenheit(selectedCityTemperature)+'\xB0F';
     tempColorDisplays.forEach(el => {
       el.style.backgroundImage = 
           `linear-gradient(to right, #f00a0a ${(selectedCityTemperature-20)*2}%, #b20000, #5d567c, #194bff, #0022c9)`;
     });
+  }
+
+  function renderWeatherGIF(){
+    currentWeatherGIF.src = selectedWeatherGIF;
   }
 
   function renderSearchResults(){
@@ -115,7 +124,7 @@ var weatherApp = (function(){
       .then(data => {
         selectedCity = data.name;
         selectedCityCountry = data.sys.country;
-        selectedCityWeather = `${data.weather[0].main} (${data.weather[0].description})`;
+        selectedCityWeather = data.weather[0].main;
         selectedCityWeatherDescription = data.weather[0].description;
         selectedCityTemperature = data.main.temp;
         resolve("Data fetched successfully.")
@@ -124,12 +133,23 @@ var weatherApp = (function(){
     });
   }
 
-  function celsiustoFarenheit(celsius) {
-    return ((celsius * (9/5)) + 32).toPrecision(4);
+  function fetchGIF(searchword) {
+    return new Promise(function (resolve, reject){
+      fetch(`https://api.giphy.com/v1/gifs/translate?api_key=uAjM22jFEPRzJbiqeoRvh0cRE6aFVfic&s=${searchword}`, 
+          { mode: 'cors' })
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(response) {
+        selectedWeatherGIF = response.data.images.original.url;
+        resolve("Data fetched successfully.");
+      })
+      .catch(error => reject(error));
+    });
   }
 
-  function getTemperatureIntensityValue(celsius) {
-    return celsius + 35;
+  function celsiustoFarenheit(celsius) {
+    return ((celsius * (9/5)) + 32).toPrecision(4);
   }
 
   render();
