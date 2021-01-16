@@ -1,6 +1,7 @@
 var weatherApp = (function(){
   let selectedCity, selectedCityCountry, selectedCityWeather, selectedCityWeatherDescription, selectedCityTemperature;
   let citySearchResults = [];
+  let tempUnitIsCelsius = true;
 
   //cache DOM
   let searchInput = document.querySelector("#search");
@@ -29,14 +30,14 @@ var weatherApp = (function(){
   function render(){
     fetchCityData()
         .then(() => renderCityDisplay());
-    fetchSearchResults("Maka")
+    fetchSearchResults()
         .then(() => renderSearchResults());
   }
 
   function renderCityDisplay(){
     currentLocation.textContent = `${selectedCity}, ${selectedCityCountry}`;
     currentWeather.textContent = selectedCityWeather;
-    currentTemperature.textContent = selectedCityTemperature;
+    currentTemperature.textContent = `${selectedCityTemperature}\xB0${tempUnitIsCelsius ? 'C' : 'F'}`;
   }
 
   function renderSearchResults(){
@@ -77,7 +78,7 @@ var weatherApp = (function(){
       cityList.then(data => {
         try{
           data.forEach((element, index) => {
-            if(element.name.search(searchValue) >= 0){
+            if(element.name.toUpperCase().search(searchValue != null ? searchValue.toUpperCase() : searchValue) >= 0){
               citySearchResults.push(`${element.name}, ${element.country}`);
               if(citySearchResults.length > 10){throw "break"}
             }
@@ -96,7 +97,7 @@ var weatherApp = (function(){
   function fetchCityData(city) {
     return new Promise(function (resolve, reject){
       city = city == null ? "Mandaluyong" : city;
-      fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=029e7e2df9f48e38c3eac1b2c7ada7d5`, 
+      fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=029e7e2df9f48e38c3eac1b2c7ada7d5`, 
           { mode: 'cors' })
       .then(response => response.json())
       .then(data => {

@@ -203,7 +203,6 @@
   .weatherapp-btn-outline-primary.disabled, .weatherapp-btn-outline-primary:disabled {
     filter: brightness(70%);
   }
-
 /* tables */
   .weatherapp-table-head{
     border-top: 4px solid var(--weatherapp-contrast);
@@ -220,6 +219,31 @@
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
     border-bottom: 0px;
+  }
+  input:checked + .slider {
+    left: 100%;
+    margin-left: -1.4rem;
+  }input:not(:checked) + .slider {
+    left: 0.2rem;
+  }
+  .slider{
+    position: absolute;
+    content: "";
+    height: 1.2rem;
+    width: 1.2rem;
+    top: 50%;
+    transform: translateY(-50%);  
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  .switch{
+    position: relative;
+    display: inline-block;
+    width: 2.8rem;
+    height: 1.6rem;
+  }
+  .rounded-switch{
+    border-radius: 1.6rem;
   }
 
 /* card */

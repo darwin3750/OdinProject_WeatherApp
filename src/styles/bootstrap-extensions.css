@@ -38,6 +38,10 @@
   border-top-left-radius: 0 !important;
   border-bottom-left-radius: 0 !important;
 }
+
+.w-fit-content {
+  width: fit-content !important;
+}
 @media (min-width: 576px) {
   .h-sm-25 {
     height: 25% !important;

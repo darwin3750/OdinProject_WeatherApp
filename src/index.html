@@ -17,7 +17,13 @@
         <div class="col-md-8 p-0">
           <div class="card weatherapp-card-recolor-contrast p-2 m-2">
             <header class="">
-              <h2>Location: <span id="location"></span></h2>
+              <h2 class="">Location: <span id="location"></span></h2>
+              <label for="temperature-switch" class="switch rounded-switch weatherapp-bg-main d-flex justify-content-around">
+                <input type="checkbox" id="temperature-switch" class="d-none">
+                <span class="slider weatherapp-bg-base rounded-circle"></span>
+                <span class="weatherapp-color-contrast font-weight-bold">C</span>
+                <span class="weatherapp-color-contrast font-weight-bold">F</span>
+              </label>
             </header>
             <hr/>
             <article>
