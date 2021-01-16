@@ -16,7 +16,29 @@ var weatherApp = (function(){
   let searchSpinner = document.querySelector("#search-spinner");
 
   //bind events
-  function setNewCity(newCity){
+  tempToggleButton.addEventListener('change', event => {
+    tempUnitIsCelsius = !event.target.checked;
+    renderCityDisplay()
+    .then(
+      tempColorDisplays.forEach(el => {
+        el.style.backgroundImage = 
+            `linear-gradient(to right, #f00a0a ${(selectedCityTemperature-20)*2}%, #b20000, #5d567c, #194bff, #0022c9)`;
+        el.style.opacity = 1;
+      })
+    );
+  })
+  searchInput.addEventListener('keyup', (event) => {
+    if (((event.keyCode >=65 && event.keyCode <= 90) // letters
+        || (event.keyCode >=48 && event.keyCode <= 57)) // digits
+        || event.keyCode == 8) { //backspace
+      console.log(searchInput.value + " " + searchInput.value.length);
+      fetchSearchResults(searchInput.value)
+        .then(() => renderSearchResults());
+   }
+  })
+
+  //functions
+  function render(newCity){
     fetchCityData(newCity)
         .then(() => fetchGIF(selectedCityWeather))
         .then(() => renderCityDisplay())
@@ -32,48 +54,7 @@ var weatherApp = (function(){
             duration: 800,
           })
         });
-  }
-
-  tempToggleButton.addEventListener('change', event => {
-    tempUnitIsCelsius = !event.target.checked;
-    renderCityDisplay()
-    .then(
-      tempColorDisplays.forEach(el => {
-        el.style.backgroundImage = 
-            `linear-gradient(to right, #f00a0a ${(selectedCityTemperature-20)*2}%, #b20000, #5d567c, #194bff, #0022c9)`;
-        el.style.opacity = 1;
-      })
-    );
-  })
-
-  searchInput.addEventListener('keyup', (event) => {
-    if (((event.keyCode >=65 && event.keyCode <= 90) // letters
-        || (event.keyCode >=48 && event.keyCode <= 57)) // digits
-        || event.keyCode == 8) { //backspace
-      console.log(searchInput.value + " " + searchInput.value.length);
-      fetchSearchResults(searchInput.value)
-        .then(() => renderSearchResults());
-   }
-  })
-
-  //functions
-  function render(){
-    fetchCityData()
-        .then(() => fetchGIF(selectedCityWeather))
-        .then(() => renderCityDisplay())
-        .then(() => renderWeatherGIF())
-        .then(() => {
-          anime.timeline({ loop: false })
-          .add({
-            targets: '.weatherapp-animate-slidescale',
-            scaleX: [0,1],
-            opacity: [0,1],
-            easing: "easeOutQuad",
-            offset: '+=600',
-            duration: 800,
-          })
-        });
-    fetchSearchResults()
+    fetchSearchResults(searchInput.value)
         .then(() => renderSearchResults());
   }
 
@@ -106,7 +87,7 @@ var weatherApp = (function(){
       citySearchResults.forEach(element => {
         let searchResult = document.createElement("li");
         searchResult.classList.add("p-2");
-        searchResult.onclick = () => {setNewCity(element.substring(0, element.search(",")))};
+        searchResult.onclick = () => {render(element.substring(0, element.search(",")))};
         searchResult.textContent = element;
         searchResults.appendChild(searchResult);
         searchSpinner.classList.replace("d-block", "d-none");

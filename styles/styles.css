@@ -105,23 +105,18 @@
   .weatherapp-title{
     font-size: 4.6rem;
     font-family: GothamRounded;
-    color: var(--weatherapp-contrast);
   }
   .weatherapp-regular{
     font-family: InterRegular;
-    color: var(--weatherapp-contrast);
   }
   .weatherapp-semibold{
     font-family: InterSemiBold;
-    color: var(--weatherapp-contrast);
   }
   .weatherapp-bold{
     font-family: InterBold;
-    color: var(--weatherapp-contrast);
   }
   .weatherapp-black{
     font-family: InterBlack;
-    color: var(--weatherapp-contrast);
   }
 
 /* text colors */
