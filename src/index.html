@@ -7,22 +7,23 @@
   <title>Weather App</title>
   <link rel="stylesheet" href="./styles/styles.css">
   <script defer src="main.js"></script>
+  <script src="anime.min.js"></script>
 </head>
 
 <body class="theme1 weatherapp-bg-accent1">
   <section class="container">
-    <div class="weatherapp-card-recolor-main card">
+    <div class="weatherapp-card-recolor-main card m-3">
       <h1 class="weatherapp-title text-center">My Weather App</h1>
       <section class="row m-0">
         <div class="col-md-8 p-0">
-          <div class="card weatherapp-card-recolor-contrast p-2 m-2">
+          <div class="card weatherapp-card-recolor-contrast p-2 m-2 weatherapp-animate-slideup">
             <header class="">
               <h2 class="">Location: <span id="location"></span></h2>
             </header>
-            <hr class="p-1 rounded-pill weatherapp-temp-gradient" />
+            <hr class="p-1 rounded-pill weatherapp-temp-gradient weatherapp-animate-slidescale" />
             <article>
-              <h4>Weather: <span id="weather"></span></h4>
-              <h4 class="d-inline-block">Temperature: <span id="temperature"></span></h4>
+              <h4 class="">Weather: <span id="weather"></span></h4>
+              <h4 class="d-inline-block ">Temperature: <span id="temperature"></span></h4>
               <div class="d-inline-block vertical-align-middle">
                 <label for="temperature-switch"
                   class="switch rounded-switch weatherapp-bg-main d-flex justify-content-around">
@@ -32,18 +33,23 @@
                   <span class="weatherapp-color-contrast font-weight-bold">F</span>
                 </label>
               </div>
-              <img id="weatherGIF" class="img-fluid" />
+              <div class="d-flex justify-content-center m-1" style="background-color: black;">
+                <img id="weatherGIF" class="img-fluid" />
+                <div id="gif-spinner" class="spinner-border weatherapp-color-base m-3 d-none"></div>
+              </div>
             </article>
           </div>
         </div>
         <div class="col-md-4 p-0">
-          <div class="card weatherapp-card-recolor-contrast p-2 m-2">
+          <div class="card weatherapp-card-recolor-contrast p-2 m-2 weatherapp-animate-slideup">
             <div class="form-group">
               <label for="search">Look for City Name:</label>
               <input id="search" type="text" class="form-control" autocomplete="off">
               <ul id="searchResults" class="list-unstyled m-0">
-
               </ul>
+              <div class="d-flex justify-content-center">
+                <div id="search-spinner" class="spinner-border weatherapp-color-main m-3 d-none"></div>
+              </div>
             </div>
           </div>
         </div>
@@ -64,5 +70,17 @@
     background-color: var(--weatherapp-base);
   }
 </style>
+
+<script defer>
+  anime.timeline({ loop: false })
+  .add({
+    targets: '.weatherapp-animate-slideup',
+    opacity: [0,1],
+    translateY: ['100%', 0],
+    easing: "easeOutExpo",
+    duration: 600,
+    offset: '+=500',
+  })
+</script>
 
 </html>

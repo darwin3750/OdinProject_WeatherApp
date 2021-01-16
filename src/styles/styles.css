@@ -1,6 +1,7 @@
 /* link all the other needed CSS files */
-@import "bootstrap.min.css";
+@import "bootstrap.css";
 @import "bootstrap-extensions.css";
+@import "animations.css";
 
 @font-face {
   font-family: GothamRounded;

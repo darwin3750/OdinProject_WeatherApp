@@ -12,13 +12,26 @@ var weatherApp = (function(){
   let tempToggleButton = document.querySelector("#temperature-switch");
   let tempColorDisplays = document.querySelectorAll(".weatherapp-temp-gradient");
   let currentWeatherGIF = document.querySelector("#weatherGIF");
+  let gifSpinner = document.querySelector("#gif-spinner");
+  let searchSpinner = document.querySelector("#search-spinner");
 
   //bind events
   function setNewCity(newCity){
     fetchCityData(newCity)
         .then(() => fetchGIF(selectedCityWeather))
         .then(() => renderCityDisplay())
-        .then(() => renderWeatherGIF());
+        .then(() => renderWeatherGIF())
+        .then(() => {
+          anime.timeline({ loop: false })
+          .add({
+            targets: '.weatherapp-animate-slidescale',
+            scaleX: [0,1],
+            opacity: [0,1],
+            easing: "easeOutQuad",
+            offset: '+=600',
+            duration: 800,
+          })
+        });
   }
 
   tempToggleButton.addEventListener('change', event => {
@@ -41,35 +54,57 @@ var weatherApp = (function(){
     fetchCityData()
         .then(() => fetchGIF(selectedCityWeather))
         .then(() => renderCityDisplay())
-        .then(() => renderWeatherGIF());
+        .then(() => renderWeatherGIF())
+        .then(() => {
+          anime.timeline({ loop: false })
+          .add({
+            targets: '.weatherapp-animate-slidescale',
+            scaleX: [0,1],
+            opacity: [0,1],
+            easing: "easeOutQuad",
+            offset: '+=600',
+            duration: 800,
+          })
+        });
     fetchSearchResults()
         .then(() => renderSearchResults());
   }
 
   function renderCityDisplay(){
-    currentLocation.textContent = `${selectedCity}, ${selectedCityCountry}`;
-    currentWeather.textContent = `${selectedCityWeather} (${selectedCityWeatherDescription})`;
-    currentTemperature.textContent = tempUnitIsCelsius ? 
-        selectedCityTemperature+'\xB0C' : celsiustoFarenheit(selectedCityTemperature)+'\xB0F';
-    tempColorDisplays.forEach(el => {
-      el.style.backgroundImage = 
-          `linear-gradient(to right, #f00a0a ${(selectedCityTemperature-20)*2}%, #b20000, #5d567c, #194bff, #0022c9)`;
+    return new Promise((resolve, reject) => {
+      currentLocation.textContent = `${selectedCity}, ${selectedCityCountry}`;
+      currentWeather.textContent = `${selectedCityWeather} (${selectedCityWeatherDescription})`;
+      currentTemperature.textContent = tempUnitIsCelsius ? 
+          selectedCityTemperature+'\xB0C' : celsiustoFarenheit(selectedCityTemperature)+'\xB0F';
+      tempColorDisplays.forEach(el => {
+        el.style.backgroundImage = 
+            `linear-gradient(to right, #f00a0a ${(selectedCityTemperature-20)*2}%, #b20000, #5d567c, #194bff, #0022c9)`;
+        el.style.opacity = 0;
+      });
+      resolve("Render success!");
     });
   }
 
   function renderWeatherGIF(){
-    currentWeatherGIF.src = selectedWeatherGIF;
+    return new Promise((resolve, reject) => {
+      currentWeatherGIF.src = selectedWeatherGIF;
+      gifSpinner.classList.replace("d-block", "d-none");
+      resolve("Render success!");
+    });
   }
 
   function renderSearchResults(){
-    //console.log(citySearchResults);
-    while (searchResults.firstChild) {searchResults.removeChild(searchResults.lastChild);}
-    citySearchResults.forEach(element => {
-      let searchResult = document.createElement("li");
-      searchResult.classList.add("p-2");
-      searchResult.onclick = () => {setNewCity(element.substring(0, element.search(",")))};
-      searchResult.textContent = element;
-      searchResults.appendChild(searchResult);
+    return new Promise((resolve, reject) => {
+      while (searchResults.firstChild) {searchResults.removeChild(searchResults.lastChild);}
+      citySearchResults.forEach(element => {
+        let searchResult = document.createElement("li");
+        searchResult.classList.add("p-2");
+        searchResult.onclick = () => {setNewCity(element.substring(0, element.search(",")))};
+        searchResult.textContent = element;
+        searchResults.appendChild(searchResult);
+        searchSpinner.classList.replace("d-block", "d-none");
+        resolve("Render success!");
+      });
     });
   }
 
@@ -94,6 +129,8 @@ var weatherApp = (function(){
   
   function fetchSearchResults(searchValue){
     return new Promise(function (resolve, reject){
+      searchSpinner.classList.replace("d-none", "d-block");
+      searchResults.innerHTML = "";
       citySearchResults = []; //empty the array first before putting new search results in
       let cityList = getJSON("city.list.json");
       cityList.then(data => {
@@ -107,9 +144,7 @@ var weatherApp = (function(){
         }catch (e) {
           if (e !== "break") throw e;
         }
-        
         resolve("Data fetched successfully.");
-        //console.log(citySearchResults)
       })
       .catch(error => reject(error));
     });
@@ -135,6 +170,8 @@ var weatherApp = (function(){
 
   function fetchGIF(searchword) {
     return new Promise(function (resolve, reject){
+      gifSpinner.classList.replace("d-none", "d-block");
+      currentWeatherGIF.src = "";
       fetch(`https://api.giphy.com/v1/gifs/translate?api_key=uAjM22jFEPRzJbiqeoRvh0cRE6aFVfic&s=${searchword}`, 
           { mode: 'cors' })
       .then(function(response) {

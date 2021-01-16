@@ -1,0 +1,37 @@
+.weatherapp-animate-wavetext-letter-container {
+  display: inline-block;
+  overflow: hidden;
+  line-height: 0;
+}
+.weatherapp-animate-wavetext-letter {
+  display: inline-block;
+  line-height: 1em;
+}
+.weatherapp-animate-wavetext{
+  transition: 0.6s;
+}
+.weatherapp-animate-slidescale{
+  opacity: 0;
+  transform-origin: 0 0;
+}
+
+.weatherapp-animate-slidein{
+  transform: translateX(-100%);
+}
+
+.weatherapp-animate-slidedown{
+  transform: translateY(-100%);
+}
+
+.weatherapp-animate-slideup{
+  transform: translateY(100%);
+  opacity: 0;
+}
+
+.weatherapp-animate-fadein .weatherapp-animate-fadein2{
+  opacity: 0;
+}
+
+.weatherapp-animate-slidefadein{
+  opacity: 0;
+}
