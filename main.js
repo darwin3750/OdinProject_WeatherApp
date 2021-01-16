@@ -36,7 +36,16 @@ var weatherApp = (function(){
 
   tempToggleButton.addEventListener('change', event => {
     tempUnitIsCelsius = !event.target.checked;
-    renderCityDisplay();
+    renderCityDisplay()
+    .then(anime.timeline({ loop: false })
+    .add({
+      targets: '.weatherapp-animate-slidescale',
+      scaleX: [0,1],
+      opacity: [0,1],
+      easing: "easeOutQuad",
+      offset: '+=600',
+      duration: 800,
+    }));
   })
 
   searchInput.addEventListener('keyup', (event) => {
