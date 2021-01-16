@@ -18,17 +18,19 @@
           <div class="card weatherapp-card-recolor-contrast p-2 m-2">
             <header class="">
               <h2 class="">Location: <span id="location"></span></h2>
-              <label for="temperature-switch" class="switch rounded-switch weatherapp-bg-main d-flex justify-content-around">
-                <input type="checkbox" id="temperature-switch" class="d-none">
-                <span class="slider weatherapp-bg-base rounded-circle"></span>
-                <span class="weatherapp-color-contrast font-weight-bold">C</span>
-                <span class="weatherapp-color-contrast font-weight-bold">F</span>
-              </label>
             </header>
-            <hr/>
+            <hr />
             <article>
               <h4>Weather: <span id="weather"></span></h4>
-              <h4>Temperature: <span id="temperature"></span></h4>
+              <h4 class="d-inline-block">Temperature: <span id="temperature"></span></h4>
+              <div class="d-inline-block vertical-align-middle">
+                <label for="temperature-switch"
+                  class="switch rounded-switch weatherapp-bg-main d-flex justify-content-around">
+                  <input type="checkbox" id="temperature-switch" class="d-none">
+                  <span class="slider weatherapp-bg-base rounded-circle"></span>
+                  <span class="weatherapp-color-contrast font-weight-bold">C</span>
+                  <span class="weatherapp-color-contrast font-weight-bold">F</span>
+                </label></div>
             </article>
           </div>
         </div>
@@ -38,7 +40,7 @@
               <label for="search">Look for City Name:</label>
               <input id="search" type="text" class="form-control" autocomplete="off">
               <ul id="searchResults" class="list-unstyled m-0">
-                
+
               </ul>
             </div>
           </div>
@@ -51,10 +53,12 @@
 </body>
 
 <style>
-  ul#searchResults > li{
+  ul#searchResults>li {
     cursor: pointer;
     transition: 0.2s;
-  }ul#searchResults > li:hover{
+  }
+
+  ul#searchResults>li:hover {
     background-color: var(--weatherapp-base);
   }
 </style>

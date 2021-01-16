@@ -9,12 +9,18 @@ var weatherApp = (function(){
   let currentLocation = document.querySelector("#location");
   let currentWeather = document.querySelector("#weather");
   let currentTemperature = document.querySelector("#temperature");
+  let tempToggleButton = document.querySelector("#temperature-switch");
 
   //bind events
   function setNewCity(newCity){
     fetchCityData(newCity)
         .then(() => renderCityDisplay());
   }
+
+  tempToggleButton.addEventListener('change', event => {
+    tempUnitIsCelsius = !event.target.checked;
+    renderCityDisplay();
+  })
 
   searchInput.addEventListener('keyup', (event) => {
     if (((event.keyCode >=65 && event.keyCode <= 90) // letters
@@ -37,7 +43,8 @@ var weatherApp = (function(){
   function renderCityDisplay(){
     currentLocation.textContent = `${selectedCity}, ${selectedCityCountry}`;
     currentWeather.textContent = selectedCityWeather;
-    currentTemperature.textContent = `${selectedCityTemperature}\xB0${tempUnitIsCelsius ? 'C' : 'F'}`;
+    currentTemperature.textContent = tempUnitIsCelsius ? 
+        selectedCityTemperature+'\xB0C' : celsiustoFarenheit(selectedCityTemperature)+'\xB0F';
   }
 
   function renderSearchResults(){
@@ -110,6 +117,10 @@ var weatherApp = (function(){
       })
       .catch(error => reject(error));
     });
+  }
+
+  function celsiustoFarenheit(celsius) {
+    return ((celsius * (9/5)) + 32).toPrecision(4);
   }
 
   render();
