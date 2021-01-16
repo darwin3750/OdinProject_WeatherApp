@@ -10,6 +10,7 @@ var weatherApp = (function(){
   let currentWeather = document.querySelector("#weather");
   let currentTemperature = document.querySelector("#temperature");
   let tempToggleButton = document.querySelector("#temperature-switch");
+  let tempColorDisplays = document.querySelectorAll(".weatherapp-temp-gradient");
 
   //bind events
   function setNewCity(newCity){
@@ -45,6 +46,10 @@ var weatherApp = (function(){
     currentWeather.textContent = selectedCityWeather;
     currentTemperature.textContent = tempUnitIsCelsius ? 
         selectedCityTemperature+'\xB0C' : celsiustoFarenheit(selectedCityTemperature)+'\xB0F';
+    tempColorDisplays.forEach(el => {
+      el.style.backgroundImage = 
+          `linear-gradient(to right, #f00a0a ${(selectedCityTemperature-20)*2}%, #b20000, #5d567c, #194bff, #0022c9)`;
+    });
   }
 
   function renderSearchResults(){
@@ -121,6 +126,10 @@ var weatherApp = (function(){
 
   function celsiustoFarenheit(celsius) {
     return ((celsius * (9/5)) + 32).toPrecision(4);
+  }
+
+  function getTemperatureIntensityValue(celsius) {
+    return celsius + 35;
   }
 
   render();
