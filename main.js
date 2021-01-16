@@ -37,15 +37,13 @@ var weatherApp = (function(){
   tempToggleButton.addEventListener('change', event => {
     tempUnitIsCelsius = !event.target.checked;
     renderCityDisplay()
-    .then(anime.timeline({ loop: false })
-    .add({
-      targets: '.weatherapp-animate-slidescale',
-      scaleX: [0,1],
-      opacity: [0,1],
-      easing: "easeOutQuad",
-      offset: '+=600',
-      duration: 800,
-    }));
+    .then(
+      tempColorDisplays.forEach(el => {
+        el.style.backgroundImage = 
+            `linear-gradient(to right, #f00a0a ${(selectedCityTemperature-20)*2}%, #b20000, #5d567c, #194bff, #0022c9)`;
+        el.style.opacity = 1;
+      })
+    );
   })
 
   searchInput.addEventListener('keyup', (event) => {
